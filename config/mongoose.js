@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/lmi_development');
+mongoose.connect('mongodb+srv://admin:admin@cluster0.a7irpfy.mongodb.net/?retryWrites=true&w=majority');
 
 const db=mongoose.connection;
 
