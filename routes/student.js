@@ -3,7 +3,7 @@ const Student = require("../models/student")
 // const verifyToken = require("../utils/verifyToken")
 // const verifyUser = require("../utils/verifyUser")
 
-router.get("/checkauthentication", (req,res,next) => {
+router.get("/checkauthentication" , (req,res,next) => {
 
     res.send("hello user you are logged in")
 })

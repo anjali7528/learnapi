@@ -8,6 +8,13 @@ const app  = express();
 const port = process.env.PORT || 8000;
 const db = require('./config/mongoose');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+
+app.use(
+cors({
+    origin: "https://learnclient.vercel.app/"
+})
+)
 
 
 app.use(cookieParser)
