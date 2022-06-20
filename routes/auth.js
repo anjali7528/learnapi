@@ -34,21 +34,21 @@ router.post("/register/teacher", async(req,res)=>{
 router.post("/login/teacher",async(req,res) => {
     try{
           const user = await teacherSchema.findOne({email: req.body.email})
-          console.log('cppp1');
+        
           if(!user) return next(createError(404,"User not found!"))
-          console.log('cppp2');
+          
           const validate = await bcrypt.compare(req.body.password, user.password)
-          console.log('cppp3');
+          
           if(!validate) return next(createError(400,"wrong password or username"))
-          console.log('cppp4');
+      
          const token = jwt.sign({id:"", username: user.username, email: user.email}, JWT_SECRET);
-         console.log('cppp5');
+        
           const {password, ...others} = user._doc;
-          console.log('cppp6');
+     
           res.cookie("access_token", token,{
             httpOnly: true,
           }).status(200).json(others);
-          console.log('cppp7');
+
          
     }catch(err){
         console.log('cppp');
@@ -79,18 +79,31 @@ router.post("/register/student", async(req,res)=>{
 
 //LoginStudent
 router.post("/login/student",async(req,res) => {
+
     try{
-          const user = await studentSchema.findOne({email: req.body.email})
-          !user && res.status(400).json("Wrong credentials!")
+        const user = await studentSchema.findOne({email: req.body.email})
+      
+        if(!user) return next(createError(404,"User not found!"))
+        
+        const validate = await bcrypt.compare(req.body.password, user.password)
+        
+        if(!validate) return next(createError(400,"wrong password or username"))
+    
+       const token = jwt.sign({id:"", username: user.username, email: user.email}, JWT_SECRET);
+      
+        const {password, ...others} = user._doc;
+   
+        res.cookie("access_token", token,{
+          httpOnly: true,
+        }).status(200).json(others);
 
-          const validate = await bcrypt.compare(req.body.password, user.password)
-          !validate && res.status(400).json("Wrong credentials!")
+       
+  }catch(err){
+      console.log('cppp');
+      res.status(500).json(err);
 
-          const {password, ...others} = user._doc;
-          res.status(200).json(others);
-    }catch(err){
-        res.status(500).json(err);
-    }
+  }
+
 })
 
 module.exports = router;
