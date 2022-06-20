@@ -6,7 +6,7 @@ const teacherSchema = require('../models/teacher');
 const  studentSchema = require('../models/student');
 const jwt  = require("jsonwebtoken");
 
-const teacherControllers = require('../controllers/teacher_controller')
+// const teacherControllers = require('../controllers/teacher_controller')
 const JWT_SECRET ='805fa36a6470b09c3957ece0d9031df8c582868e1612ffb045d41659bec766b858c84cce1d9fdb6bf4568fe8958ae15192d42c52e086d2b81462ebb74d01126c'
 
 //RegisterTeacher
