@@ -4,6 +4,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const teacherSchema = require('../models/teacher');
 const  studentSchema = require('../models/student');
+const jwt  = require("jsonwebtoken");
 
 // const teacherControllers = require('../controllers/teacher_controller')
 
@@ -30,13 +31,17 @@ router.post("/register/teacher", async(req,res)=>{
 router.post("/login/teacher",async(req,res) => {
     try{
           const user = await teacherSchema.findOne({email: req.body.email})
-          !user && res.status(400).json("Wrong credentials!")
+          if(!user) return next(createError(404,"User not found!"))
 
           const validate = await bcrypt.compare(req.body.password, user.password)
-          !validate && res.status(400).json("Wrong credentials!")
+          if(!isPasswordCorrect) return next(createError(400,"wrong password or username"))
+
+          const token = jwt.sign({id:user_id, username: user.username, email: user.email},"805fa36a6470b09c3957ece0d9031df8c582868e1612ffb045d41659bec766b858c84cce1d9fdb6bf4568fe8958ae15192d42c52e086d2b81462ebb74d01126c");
 
           const {password, ...others} = user._doc;
-          res.status(200).json(others);
+          res.cookie("access_token", token,{
+            httpOnly: true,
+          }).status(200).json(others);
     }catch(err){
         res.status(500).json(err);
     }

@@ -7,14 +7,18 @@ const studentRoute = require("./routes/student");
 const app  = express();
 const port = process.env.PORT || 8000;
 const db = require('./config/mongoose');
+const cookieParser = require('cookie-parser');
 
 
+app.use(cookieParser)
 app.use(express.json());
+
 app.use("/api/auth",authRoute);
 app.use("/api/course",courseRoute);
 app.use("/api/quiz",quizRoute);
 app.use("/api/result",resultRoute);
 app.use("/api/student",studentRoute);
+
 
 // if(process.env.NODE_ENV= "production"){
 //     app.use(express.static("client/build"))
