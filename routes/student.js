@@ -1,20 +1,21 @@
 const router = require("express").Router();
 const Student = require("../models/student")
-const varifiedToken = require("../utils/verifyToken")
+const verifyToken = require("../utils/verifyToken")
+const verifyUser = require("../utils/verifyToken")
 
-router.get("/checkauthentication", varifiedToken , (req,res,next) => {
-
-    res.send("hello user you are logged in")
-})
-
-router.get("/checkuser", varifyUser , (req,res,next) => {
+router.get("/checkauthentication", (req,res,next) => {
 
     res.send("hello user you are logged in")
 })
 
+// router.get("/checkuser", verifyUser , (req,res,next) => {
+
+//     res.send("hello user you are logged in")
+// })
 
 
-router.get("/", verifyUser, async (req,res) => {
+
+router.get("/", async (req,res) => {
 
     try{
         let user;
