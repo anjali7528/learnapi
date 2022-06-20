@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Student = require("../models/student")
-const verifyToken = require("../utils/verifyToken")
-const verifyUser = require("../utils/verifyToken")
+// const verifyToken = require("../utils/verifyToken")
+// const verifyUser = require("../utils/verifyUser")
 
 router.get("/checkauthentication", (req,res,next) => {
 
