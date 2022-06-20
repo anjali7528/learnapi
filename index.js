@@ -10,14 +10,14 @@ const db = require('./config/mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-// app.use(
-// cors({
-//     origin: "https://learnclient.vercel.app"
-// })
-// )
+app.use(
+cors({
+    origin: "127.0.0.1"
+})
+)
 
 
-app.use(cookieParser)
+app.use(cookieParser())
 app.use(express.json());
 
 app.use("/api/auth",authRoute);

@@ -20,31 +20,40 @@ router.post("/register/teacher", async(req,res)=>{
               email: req.body.email,
               password:hashedPass,
           });
+          console.log('cp1')
           const user = await newUser.save();
           res.status(200).json(user);
     } catch(err){
+        console.log('cpp2')
         res.status(500).json(err);
     }
 })
+
 
 //LoginTeacher
 router.post("/login/teacher",async(req,res) => {
     try{
           const user = await teacherSchema.findOne({email: req.body.email})
+          console.log('cppp1');
           if(!user) return next(createError(404,"User not found!"))
-
+          console.log('cppp2');
           const validate = await bcrypt.compare(req.body.password, user.password)
-          if(!isPasswordCorrect) return next(createError(400,"wrong password or username"))
-
-          const token = jwt.sign({id:user_id, username: user.username, email: user.email}, JWT_SECRET);
-
+          console.log('cppp3');
+          if(!validate) return next(createError(400,"wrong password or username"))
+          console.log('cppp4');
+         const token = jwt.sign({id:"", username: user.username, email: user.email}, JWT_SECRET);
+         console.log('cppp5');
           const {password, ...others} = user._doc;
-
+          console.log('cppp6');
           res.cookie("access_token", token,{
             httpOnly: true,
           }).status(200).json(others);
+          console.log('cppp7');
+         
     }catch(err){
+        console.log('cppp');
         res.status(500).json(err);
+
     }
 })
 
