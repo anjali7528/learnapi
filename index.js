@@ -12,7 +12,7 @@ const cors = require('cors');
 
 app.use(
 cors({
-    origin: "127.0.0.1"
+    origin: "https://learnclient.vercel.app"
 })
 )
 
